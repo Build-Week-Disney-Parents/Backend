@@ -10,7 +10,8 @@ exports.up = function(knex) {
       .onDelete("CASCADE");
     table.text("title", 64).notNullable();
     table.text("description", 256);
-    table.datetime("meeting_time");
+    table.datetime("meeting_time").notNullable();
+    table.enu("request_type", ["stroller", "childcare"]).notNullable();
     table.text("location", 64).notNullable();
     table.timestamps();
   });
