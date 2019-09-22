@@ -8,24 +8,22 @@ const createToken = require("../middleware/token.js");
 
 router.post(
   "/register",
-  [
-    checkSchema({
-      username: {
-        in: ["body"],
-        isEmpty: false,
-        errorMessage: "Username must be provided"
-      },
-      password: {
-        in: ["body"],
-        isEmpty: false,
-        isLength: {
-          options: { min: 4 },
-          errorMessage: "Password must be at least 4 characters long"
-        }
+  checkSchema({
+    username: {
+      in: ["body"],
+      isEmpty: false,
+      errorMessage: "Username must be provided"
+    },
+    password: {
+      in: ["body"],
+      isEmpty: false,
+      isLength: {
+        options: { min: 4 },
+        errorMessage: "Password must be at least 4 characters long"
       }
-    }),
-    checkValidation
-  ],
+    }
+  }),
+  checkValidation,
   (req, res) => {
     const newUser = {
       username: req.body.username,
@@ -38,24 +36,22 @@ router.post(
 
 router.post(
   "/login",
-  [
-    checkSchema({
-      username: {
-        in: ["body"],
-        isEmpty: false,
-        errorMessage: "Username must be provided"
-      },
-      password: {
-        in: ["body"],
-        isEmpty: false,
-        isLength: {
-          options: { min: 4 },
-          errorMessage: "Password must be at least 4 characters long"
-        }
+  checkSchema({
+    username: {
+      in: ["body"],
+      isEmpty: false,
+      errorMessage: "Username must be provided"
+    },
+    password: {
+      in: ["body"],
+      isEmpty: false,
+      isLength: {
+        options: { min: 4 },
+        errorMessage: "Password must be at least 4 characters long"
       }
-    }),
-    checkValidation
-  ],
+    }
+  }),
+  checkValidation,
   (req, res, next) => {
     User.getByName(req.body.username)
       .then(user => {

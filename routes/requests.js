@@ -16,17 +16,15 @@ router.post("/", authenticate, (req, res) => {});
 
 router.get(
   "/:id",
-  [
-    checkSchema({
-      id: {
-        in: ["params"],
-        isInt: true,
-        errorMessage: "ID must be an integer"
-      }
-    }),
-    checkValidation,
-    authenticate
-  ],
+  checkSchema({
+    id: {
+      in: ["params"],
+      isInt: true,
+      errorMessage: "ID must be an integer"
+    }
+  }),
+  checkValidation,
+  authenticate,
   (req, res) => {
     res.send("Hello world!");
   }
