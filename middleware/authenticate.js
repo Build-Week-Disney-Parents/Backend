@@ -7,6 +7,8 @@ module.exports = function(req, res, next) {
         res.status(401).json({ error: "Invalid credentials" });
         next();
       } else {
+        // Store token in request for use later
+        req.token = token;
         next();
       }
     });

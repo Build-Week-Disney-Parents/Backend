@@ -14,6 +14,6 @@ function getByID(id) {
 
 function create(request) {
   return knex("requests")
-    .insert({ request })
+    .insert(request)
     .then(id => getByID(id[0]));
 }
