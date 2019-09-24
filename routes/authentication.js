@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { check, checkSchema, validationResult } = require("express-validator");
+const { checkSchema } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/User.js");
@@ -32,7 +32,10 @@ router.post(
       password: bcrypt.hashSync(req.body.password, 12)
     };
 
-    User.create(newUser).then(user => res.status(201).send());
+    User.create(newUser).then(user => {
+      const token = createToken(user);
+      res.status(201).json({ token });
+    });
   }
 );
 
