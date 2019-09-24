@@ -7,15 +7,11 @@ function all() {
 }
 
 function getByID(id) {
-  return knex("users")
-    .where({ id })
-    .first();
+  return knex("users").where({"id", id});
 }
 
 function getByName(username) {
-  return knex("users")
-    .where({ username })
-    .first();
+  return knex("users").where("username", username);
 }
 
 function create(user) {

@@ -13,7 +13,7 @@ exports.up = function(knex) {
     table.datetime("meeting_time").notNullable();
     table.enu("request_type", ["stroller", "childcare"]).notNullable();
     table.text("location", 64).notNullable();
-    table.timestamps().defaultTo(knex.fn.now());
+    table.timestamp("created_at").defaultTo(knex.fn.now());
   });
 };
 
