@@ -22,17 +22,25 @@ const userSchema = {
   }
 };
 
+const registrationSchema = {
+  ...userSchema,
+  full_name: {
+    in: ["body"],
+    isEmpty: false,
+    errorMessage: "Full name must be provided"
+  }
+};
+
 router.post(
   "/register",
-  checkSchema(userSchema),
+  checkSchema(registrationSchema),
   checkValidation,
   (req, res) => {
-    const newUser = {
+    User.create({
       username: req.body.username,
-      password: bcrypt.hashSync(req.body.password, 12)
-    };
-
-    User.create(newUser).then(user => {
+      password: bcrypt.hashSync(req.body.password, 12),
+      full_name: req.body.full_name
+    }).then(user => {
       const token = createToken(user);
       res.status(201).json({ token });
     });

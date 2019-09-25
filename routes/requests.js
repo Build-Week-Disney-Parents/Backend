@@ -52,7 +52,7 @@ router.get(
   }),
   checkValidation,
   (req, res) => {
-    res.send("Hello world!");
+    Request.getByID(req.params.id).then(request => res.json(request));
   }
 );
 

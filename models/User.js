@@ -1,10 +1,6 @@
 const knex = require("../database/db.js");
 
-module.exports = { all, getByID, getByName, create };
-
-function all() {
-  return knex("users");
-}
+module.exports = { getByID, getByName, create };
 
 function getByID(id) {
   return knex("users")

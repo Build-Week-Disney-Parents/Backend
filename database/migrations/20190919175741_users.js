@@ -9,6 +9,7 @@ exports.up = function(knex) {
       .text("password", 128)
       .notNullable()
       .unique();
+    table.text("full_name", 64).notNullable();
   });
 };
 
