@@ -4,7 +4,16 @@ const { checkSchema } = require("express-validator");
 const checkValidation = require("../middleware/validation.js");
 const authenticate = require("../middleware/authenticate.js");
 
+const { getRequestComments } = require("../models/Comment.js");
 const Request = require("../models/Request.js");
+
+const requestDetailSchema = {
+  id: {
+    in: ["params"],
+    isInt: true,
+    errorMessage: "ID must be an integer"
+  }
+};
 
 router.get("/", authenticate, (req, res, next) => {
   Request.all()
@@ -43,16 +52,20 @@ router.post(
 router.get(
   "/:id",
   authenticate,
-  checkSchema({
-    id: {
-      in: ["params"],
-      isInt: true,
-      errorMessage: "ID must be an integer"
-    }
-  }),
+  checkSchema(requestDetailSchema),
   checkValidation,
   (req, res) => {
     Request.getByID(req.params.id).then(request => res.json(request));
+  }
+);
+
+router.get(
+  "/:id/comments",
+  authenticate,
+  checkSchema(requestDetailSchema),
+  checkValidation,
+  (req, res) => {
+    getRequestComments(req.params.id).then(comments => res.json(comments));
   }
 );
 

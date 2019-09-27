@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const AuthenticationRouter = require("./routes/authentication.js");
 const RequestRouter = require("./routes/requests.js");
+const CommentRouter = require("./routes/comments.js");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/accounts", AuthenticationRouter);
 app.use("/requests", RequestRouter);
+app.use("/comments", CommentRouter);
 
 app.use((error, req, res, next) => {
   if (process.env.NODE_ENV === "development") {
