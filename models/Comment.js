@@ -9,7 +9,5 @@ function getByID(id) {
 }
 
 function create(comment) {
-  return knex("comments")
-    .insert({ comment })
-    .then(id => getByID(id)[0]);
+  return knex("comments").insert({ comment });
 }
