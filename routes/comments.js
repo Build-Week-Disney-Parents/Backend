@@ -22,7 +22,7 @@ router.post(
   checkValidation,
   (req, res) => {
     Comment.create({ user_id: req.token.sub, ...req.body }).then(comment =>
-      res.status(201).json(comment)
+      res.status(201)
     );
   }
 );

@@ -15,7 +15,5 @@ function getByName(username) {
 }
 
 function create(user) {
-  return knex("users")
-    .insert(user)
-    .then(id => getByID(id[0]));
+  return knex("users").insert(user);
 }

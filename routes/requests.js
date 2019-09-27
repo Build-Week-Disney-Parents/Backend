@@ -22,7 +22,7 @@ router.post(
     request_type: {
       in: ["body"],
       isEmpty: false,
-      isIn: { options: ["stroller", "childcare"] }
+      isIn: { options: ["stroller"], options: ["childcare"] }
     },
     location: {
       in: ["body"],
