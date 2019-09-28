@@ -4,8 +4,7 @@ module.exports = function(req, res, next) {
   if (req.headers.token) {
     jwt.verify(req.headers.token, process.env.SECRET_KEY, (error, token) => {
       if (error) {
-        res.status(401).json({ error: "Invalid credentials" });
-        next();
+        next({ status: 401, message: "Invalid credentials" });
       } else {
         // Store token in request for use later
         req.token = token;
@@ -13,9 +12,6 @@ module.exports = function(req, res, next) {
       }
     });
   } else {
-    res
-      .status(401)
-      .json({ error: "Please provide a token for authentication" });
-    next();
+    next({ status: 401, message: "Please provide a token for authentication" });
   }
 };

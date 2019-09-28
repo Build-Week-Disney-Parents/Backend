@@ -27,14 +27,19 @@ router.post(
   }
 );
 
-router.delete("/:id", authenticate, (req, res) => {
+router.delete("/:id", authenticate, (req, res, next) => {
   Comment.getByID(req.params.id).then(comment => {
-    if (comment.user_id === req.token.subject) {
-      Comment.destroy(req.params.id).then(comment => res.status(204).send());
+    if (comment) {
+      if (comment.user_id === req.token.subject) {
+        Comment.destroy(req.params.id).then(comment => res.status(204).send());
+      } else {
+        next({
+          status: 401,
+          message: "You are not authorized to delete that comment."
+        });
+      }
     } else {
-      res
-        .status(401)
-        .json({ error: "You are not authorized to delete that comment." });
+      next({ status: 404, message: "Comment does not exist" });
     }
   });
 });

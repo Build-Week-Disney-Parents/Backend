@@ -17,10 +17,10 @@ app.use("/comments", CommentRouter);
 
 app.use((error, req, res, next) => {
   if (process.env.NODE_ENV === "development") {
-    console.log(error);
+    console.log({ error });
   }
 
-  res.status(500).json(error);
+  res.status(error.status || 500).json({ error: error.message });
   next();
 });
 

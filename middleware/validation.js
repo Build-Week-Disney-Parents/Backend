@@ -6,6 +6,6 @@ module.exports = function(req, res, next) {
   if (errors.isEmpty()) {
     next();
   } else {
-    next(errors.array());
+    next({ status: 400, message: errors.array() });
   }
 };
