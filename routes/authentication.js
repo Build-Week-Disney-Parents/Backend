@@ -41,8 +41,7 @@ router.post(
       password: bcrypt.hashSync(req.body.password, 12),
       full_name: req.body.full_name
     }).then(user => {
-      const token = createToken(user);
-      res.status(201).json({ token });
+      res.json({ token: createToken(user) });
     });
   }
 );
@@ -55,8 +54,7 @@ router.post(
     User.getByName(req.body.username)
       .then(user => {
         if (user && bcrypt.compareSync(req.body.password, user.password)) {
-          token = createToken(user);
-          res.json({ token });
+          res.json({ token: createToken(user) });
         } else {
           res.status(401).json({ message: "Invalid credentials" });
         }

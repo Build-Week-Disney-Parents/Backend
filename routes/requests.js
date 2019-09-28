@@ -30,8 +30,8 @@ router.post(
     meeting_time: { in: ["body"], isEmpty: false },
     request_type: {
       in: ["body"],
-      isEmpty: false,
-      isIn: { options: ["stroller"], options: ["childcare"] }
+      isEmpty: false
+      // isIn: { options: ["childcare", "stroller"] }
     },
     location: {
       in: ["body"],
@@ -40,10 +40,7 @@ router.post(
   }),
   checkValidation,
   (req, res, next) => {
-    // Add user ID from token to body
-    req.body.user_id = req.token.subject;
-
-    Request.create(req.body)
+    Request.create({ user_id: req.token.subject, ...req.body })
       .then(request => res.json(request))
       .catch(error => next(error));
   }
@@ -55,7 +52,7 @@ router.get(
   checkSchema(requestDetailSchema),
   checkValidation,
   (req, res) => {
-    Request.getByID(req.params.id).then(request => res.json(request));
+    Request.getByID(req.params.id).then(request => res.json({ request }));
   }
 );
 
@@ -65,7 +62,7 @@ router.get(
   checkSchema(requestDetailSchema),
   checkValidation,
   (req, res) => {
-    getRequestComments(req.params.id).then(comments => res.json(comments));
+    getRequestComments(req.params.id).then(comments => res.json({ comments }));
   }
 );
 

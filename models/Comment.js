@@ -1,6 +1,6 @@
 const knex = require("../database/db.js");
 
-module.exports = { getByID, getRequestComments, create };
+module.exports = { getByID, getRequestComments, create, destroy };
 
 function getByID(id) {
   return knex("comments")
@@ -13,7 +13,7 @@ function getRequestComments(id) {
     .join("users as u", "c.user_id", "u.id")
     .select(
       "c.id",
-      "u.id",
+      "c.user_id",
       "u.username",
       "u.full_name",
       "c.body",
@@ -25,4 +25,10 @@ function getRequestComments(id) {
 
 function create(comment) {
   return knex("comments").insert(comment);
+}
+
+function destroy(id) {
+  return knex("comments")
+    .where({ id })
+    .del();
 }

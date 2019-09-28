@@ -7,7 +7,7 @@ module.exports = function(user) {
   };
 
   const options = {
-    expiresIn: "30d"
+    expiresIn: "10d"
   };
 
   return jwt.sign(payload, process.env.SECRET_KEY, options);
