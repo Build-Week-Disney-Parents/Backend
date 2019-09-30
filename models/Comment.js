@@ -14,6 +14,7 @@ function getRequestComments(id) {
     .select(
       "c.id",
       "c.user_id",
+      "c.request_id",
       "u.username",
       "u.full_name",
       "c.body",
