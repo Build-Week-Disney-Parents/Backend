@@ -102,4 +102,8 @@ When retrieving comments from the database,
 
 ### POST `/comments`
 
-### DELETE `/comments`
+### DELETE `/comments/{id}`
+
+Deletes the comment with ID specified by `id`. If the comment does not exist
+a 404 error will be returned. If a user tries to delete a comment that is not
+their own, a 403 error will be returned.

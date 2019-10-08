@@ -34,7 +34,7 @@ router.delete("/:id", authenticate, (req, res, next) => {
         Comment.destroy(req.params.id).then(comment => res.status(204).send());
       } else {
         next({
-          status: 401,
+          status: 403,
           message: "You are not authorized to delete that comment."
         });
       }
